@@ -4,9 +4,18 @@
 ![Code Size](https://img.shields.io/github/languages/code-size/Qiming-Liu/react-image-cropper-dropzone)
 ![Downloads](https://img.shields.io/npm/dm/react-image-cropper-dropzone.svg)
 
+
 Simple react dropzone for image cropper.
 
 <p align="center"><img src="preview.jpg"></p>
+
+## Savvy Stack's wishlist (aka how we plan to improve this handy little component)
+
+1. Allow the host to control cropped size
+2. Allow the host to control image format and compression quality
+3. Allow the host to override styles
+
+We'll update the README and submit a PR after we finish. Stay tuned.
 
 ## Install
 
