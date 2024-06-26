@@ -1,5 +1,5 @@
 import React, {useRef} from 'react'
-import Modal from './Model'
+import Modal from './Modal'
 import ReactImageCropper, {RefObject} from './ReactImageCropper'
 import {CropperOptions, OutputOptions, StyleOverrides, UserInterfaceOptions} from './ReactImageCropperDropzone'
 
