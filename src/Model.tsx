@@ -1,13 +1,15 @@
-import React, {FC, ReactNode, useEffect, useRef, useState} from 'react'
+import React, {FC, ReactNode, ReactElement, useEffect, useRef, useState} from 'react'
+import {StyleOverrides} from './ReactImageCropperDropzone'
 
 interface ModalProps {
   isOpen: boolean
   onClose: () => void
-  title: string
+  title: string | ReactElement
   children: ReactNode
+  styles: StyleOverrides
 }
 
-const Modal: FC<ModalProps> = ({isOpen, onClose, title, children}) => {
+const Modal: FC<ModalProps> = ({isOpen, onClose, title, children, styles}) => {
   const modalRef = useRef<HTMLDivElement>(null)
   const [show, setShow] = useState(isOpen)
 
@@ -38,8 +40,8 @@ const Modal: FC<ModalProps> = ({isOpen, onClose, title, children}) => {
   if (!show) return null
 
   return (
-    <div style={OVERLAY_STYLES}>
-      <div ref={modalRef} style={{...MODAL_STYLES, opacity: isOpen ? 1 : 0}}>
+    <div style={{...OVERLAY_STYLES, ...styles.overlay}}>
+      <div ref={modalRef} style={{...MODAL_STYLES, ...styles.modal, opacity: isOpen ? 1 : 0}}>
         <h2>{title}</h2>
         {children}
       </div>

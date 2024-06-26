@@ -1,25 +1,59 @@
-import React, {useCallback, useState} from 'react'
-import {useDropzone, Accept} from 'react-dropzone'
+import React, {useCallback, useState, ReactElement, CSSProperties} from 'react'
+import {useDropzone, DropzoneOptions} from 'react-dropzone'
 import {ReactImageCropperPopup} from './ReactImageCropperPopup'
+import Cropper from 'cropperjs'
 
-export {Accept}
+export type CropperOptions = Cropper.Options
+
+export type UserInterfaceOptions = {
+  title: string | ReactElement
+  save: string | ReactElement
+}
+
+export type StyleOverrides = {
+  overlay?: CSSProperties
+  modal?: CSSProperties
+  saveButton?: CSSProperties
+  title?: CSSProperties
+  cropper?: CSSProperties
+}
+
+export type OutputOptions = {
+  height?: number
+  width?: number
+  maxHeight?: number
+  maxWidth?: number
+  format: 'image/png' | 'image/jpeg' | 'image/webp'
+  compression?: number
+}
 
 export interface ReactImageCropperDropzoneProps {
   children: React.ReactNode
-  accept: Accept
   afterCrop: (dataUrl: string) => void
-  title: string
-  lockAspectRatio?: boolean
-  aspectRatio: number
+  cropper?: Cropper.Options
+  dropzone?: DropzoneOptions
+  ui?: UserInterfaceOptions
+  styles?: StyleOverrides
+  output?: OutputOptions
 }
 
 export const ReactImageCropperDropzone: React.FC<ReactImageCropperDropzoneProps> = ({
   children,
-  accept,
   afterCrop,
-  title,
-  lockAspectRatio = true,
-  aspectRatio,
+  cropper = {
+    background: true,
+    autoCropArea: 0.8,
+    scalable: true,
+    movable: true,
+    zoomable: true,
+    zoomOnTouch: true,
+  },
+  dropzone = {},
+  ui = {title: 'Crop your picture', save: 'Save'},
+  styles = {
+    cropper: {height: 600, width: '100%'}
+  },
+  output = {format: 'image/jpeg', compression: 0.9},
 }) => {
   const [open, setOpen] = useState<boolean>(false)
   const [image, setImage] = useState<string>('')
@@ -42,10 +76,14 @@ export const ReactImageCropperDropzone: React.FC<ReactImageCropperDropzoneProps>
   }, [])
 
   const {getRootProps, getInputProps} = useDropzone({
-    accept,
     maxFiles: 1,
     maxSize: 4000000,
     minSize: 0,
+    accept: {
+      'image/jpeg': ['.jpeg', '.jpg'],
+      'image/png': ['.png'],
+    },
+    ...dropzone,
     onDrop,
   })
 
@@ -62,9 +100,10 @@ export const ReactImageCropperDropzone: React.FC<ReactImageCropperDropzoneProps>
         }}
         img={image}
         afterCrop={afterCrop}
-        title={title}
-        lockAspectRatio={lockAspectRatio}
-        aspectRatio={aspectRatio}
+        cropper={cropper}
+        output={output}
+        ui={ui}
+        styles={styles}
       />
     </>
   )

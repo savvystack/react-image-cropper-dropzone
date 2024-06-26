@@ -1,15 +1,17 @@
 import React, {useRef} from 'react'
 import Modal from './Model'
 import ReactImageCropper, {RefObject} from './ReactImageCropper'
+import {CropperOptions, OutputOptions, StyleOverrides, UserInterfaceOptions} from './ReactImageCropperDropzone'
 
 interface ReactImageCropperPopupProps {
   open: boolean
   onClose: () => void
   img: string
   afterCrop: (dataUrl: string) => void
-  title: string
-  lockAspectRatio: boolean
-  aspectRatio: number
+  cropper: CropperOptions
+  output: OutputOptions
+  ui: UserInterfaceOptions
+  styles: StyleOverrides
 }
 
 const ReactImageCropperPopup: React.FC<ReactImageCropperPopupProps> = ({
@@ -17,9 +19,10 @@ const ReactImageCropperPopup: React.FC<ReactImageCropperPopupProps> = ({
   onClose,
   img,
   afterCrop,
-  title,
-  lockAspectRatio,
-  aspectRatio,
+  cropper,
+  output,
+  ui,
+  styles,
 }) => {
   const ImageCropperRef = useRef<RefObject>(null)
 
@@ -31,10 +34,10 @@ const ReactImageCropperPopup: React.FC<ReactImageCropperPopupProps> = ({
   }
 
   return (
-    <Modal isOpen={open} onClose={onClose} title={title}>
-      <ReactImageCropper aspectRatio={aspectRatio} src={img} lockAspectRatio={lockAspectRatio} ref={ImageCropperRef} />
-      <button style={BUTTON_STYLES} onClick={handleSaveClick}>
-        Save
+    <Modal isOpen={open} onClose={onClose} title={ui.title} styles={styles}>
+      <ReactImageCropper src={img} ref={ImageCropperRef} cropper={cropper} output={output} styles={styles} />
+      <button style={{...BUTTON_STYLES, ...styles.saveButton}} onClick={handleSaveClick}>
+        {ui.save}
       </button>
     </Modal>
   )
