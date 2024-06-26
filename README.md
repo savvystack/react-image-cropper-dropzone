@@ -11,9 +11,13 @@ Simple react dropzone for image cropper.
 
 ## Savvy Stack's wishlist (aka how we plan to improve this handy little component)
 
-1. Allow the host to control cropped size
-2. Allow the host to control image format and compression quality
-3. Allow the host to override styles
+Note this this version is no longer compatible with the original.
+
+1. ~~Allow the host to control cropped size~~
+2. ~~Allow the host to control image format and compression quality~~
+3. ~~Allow the host to override styles~~
+4. Update the sample code to show off the new capabilities
+5. Update the README to reflect the API change
 
 We'll update the README and submit a PR after we finish. Stay tuned.
 
