@@ -36,7 +36,7 @@ const ReactImageCropperPopup: React.FC<ReactImageCropperPopupProps> = ({
   return (
     <Modal isOpen={open} onClose={onClose} title={ui.title} styles={styles}>
       <ReactImageCropper src={img} ref={ImageCropperRef} cropper={cropper} output={output} styles={styles} />
-      <button style={{...BUTTON_STYLES, ...styles.saveButton}} onClick={handleSaveClick}>
+      <button type="button" style={{...BUTTON_STYLES, ...styles.saveButton}} onClick={handleSaveClick}>
         {ui.save}
       </button>
     </Modal>
